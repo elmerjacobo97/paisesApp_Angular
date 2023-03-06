@@ -1,0 +1,74 @@
+<h2 class="text-2xl font-bold">Por País</h2>
+
+<div>
+  <form autocomplete="off" (ngSubmit)="buscar()">
+    <input
+      type="text"
+      name="termino"
+      class="w-full px-3 py-2 rounded-lg shadow"
+      [(ngModel)]="termino"
+      placeholder="Buscar pais..."
+    >
+  </form>
+</div>
+
+<!-- Manejo de error -->
+<div class="mt-5" *ngIf="hayError">
+  <p class="text-red-600 text-center">No se encontró nada con el término {{ termino }}</p>
+</div>
+
+<!-- Spinner de carga -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<div *ngIf="paises.length > 0" class="mt-5">
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+    <tr>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        #
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Bandera
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Nombre
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Población
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+        Acciones
+      </th>
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+    <tr class="hover:bg-gray-50" *ngFor="let pais of paises; let i = index">
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">{{ i + 1 }}</div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">
+          <img class="w-20" [src]="pais.flags.svg" [alt]="pais.name">
+        </div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">
+          {{ pais.name.common }}
+        </div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">
+          {{ pais.population | number }}
+        </div>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <div class="text-sm font-medium text-gray-900">
+          <a [routerLink]="['/pais', pais.cca2]">Ver país</a>
+        </div>
+      </td>
+    </tr>
+    <!-- Agrega más filas aquí -->
+    </tbody>
+  </table>
+
+</div>
