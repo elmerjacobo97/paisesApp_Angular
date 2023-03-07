@@ -1,1 +1,23 @@
-<p>por-capital works!</p>
+<div class="animate__animated animate__fadeIn">
+  <h2 class="text-2xl font-bold">Por Capital</h2>
+
+  <!-- Input de búsqueda -->
+  <app-pais-input
+    (onEnter)="buscar($event)"
+    placeholder="Buscar capital..."
+  ></app-pais-input>
+</div>
+
+<!-- Manejo de error -->
+<div class="mt-5" *ngIf="hayError">
+  <p class="text-red-600 text-center">No se encontró nada con el término {{ termino }}</p>
+</div>
+
+<!-- Spinner de carga -->
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<div *ngIf="paises.length > 0" class="mt-5">
+  <!--  Tabla de los países  -->
+  <app-pais-tabla [paises]="paises"></app-pais-tabla>
+
+</div>

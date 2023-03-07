@@ -1,1 +1,28 @@
-<p>ver-pais works!</p>
+<app-spinner
+  *ngIf="!pais; else divPais"
+></app-spinner>
+
+<ng-template #divPais>
+  <div *ngIf="pais" class="flex gap-5 md:gap-20 animate__animated animate__fadeIn">
+    <div>
+      <h2 class="text-gray-700 text-2xl font-black">
+        {{ pais.name.common }}
+      </h2>
+      <img class="w-52" [src]="pais.flags.svg" [alt]="pais.name.common">
+    </div>
+    <div>
+      <h2 class="text-gray-700 text-2xl font-black">Más Información</h2>
+      <div>
+        <p class="text-lg font-medium">Población:
+          <span>{{ pais.population | number }}</span>
+        </p>
+        <p class="text-lg font-medium">Código numérico:
+          <span>{{ pais.ccn3 }}</span>
+        </p>
+        <p class="text-lg font-medium">Código Alpha 3:
+          <span>{{ pais.cioc }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</ng-template>
